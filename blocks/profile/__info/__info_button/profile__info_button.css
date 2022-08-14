@@ -1,0 +1,23 @@
+.profile__info_button {
+    margin: auto 0;
+    padding: 0px;
+    display: inline-block;
+    width: 24px;
+    min-height: 24px;
+    background-image: url(../../../../image/карандаш.svg);
+    border: 1px solid #FFFFFF;
+    background-color: rgba(0, 0, 0, 1);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.profile__info_button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 580px) {
+    .profile__info_button {
+        margin-left: 10px;
+        width: 18px;
+        min-height: 18px;
+    }
+}
