@@ -1,10 +1,10 @@
 console.log('работает');
 let popup = document.querySelector('.popup');
-let openButton = document.querySelector('.popap__open-popup');
+let openButton = document.querySelector('.profile__button-open_popup_opened');
 let closeButton = popup.querySelector('.popup__close');
 
 let togglePopup = function () {
-    popup.classList.toggle('popup__open-popup');
+    popup.classList.toggle('profile__button-open_popup_opened');
 }
 
 openButton.addEventListener('click', togglePopup)
