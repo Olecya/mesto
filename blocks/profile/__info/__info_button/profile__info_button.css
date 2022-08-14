@@ -16,8 +16,9 @@
 
 @media screen and (max-width: 580px) {
     .profile__info_button {
-        margin-left: 10px;
+        margin: 33px 0 0;
         width: 18px;
         min-height: 18px;
+        height: 100%;
     }
 }
