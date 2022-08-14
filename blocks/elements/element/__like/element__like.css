@@ -1,4 +1,4 @@
-.element__info_like {
+.element__like {
     background-image: url(../../../../../image/сердце.svg);
     background-color: white;
     padding: 0;
@@ -10,6 +10,6 @@
 
 }
 
-.element__info_like:hover {
+.element__like:hover {
     opacity: 0.5;
 }
