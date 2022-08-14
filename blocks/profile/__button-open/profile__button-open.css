@@ -1,21 +1,21 @@
-.profile__info_button {
+.profile__button-open {
     margin: auto 0;
     padding: 0px;
     display: inline-block;
     width: 24px;
     min-height: 24px;
-    background-image: url(../../../../image/карандаш.svg);
+    background-image: url(../../../image/карандаш.svg);
     border: 1px solid #FFFFFF;
     background-color: rgba(0, 0, 0, 1);
     background-repeat: no-repeat;
     background-position: center;
 }
-.profile__info_button:hover {
+.profile__button-open:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 580px) {
-    .profile__info_button {
+    .profile__button-open {
         margin: 33px 0 0;
         width: 18px;
         min-height: 18px;
