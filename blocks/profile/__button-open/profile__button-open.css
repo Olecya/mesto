@@ -6,9 +6,11 @@
     min-height: 24px;
     background-image: url(../../../image/карандаш.svg);
     border: 1px solid #FFFFFF;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 10px 10px;
+    cursor: pointer;
 }
 .profile__button-open:hover {
     opacity: 0.6;
@@ -20,5 +22,6 @@
         width: 18px;
         min-height: 18px;
         height: 100%;
+        background-size: 7px 7px;
     }
 }

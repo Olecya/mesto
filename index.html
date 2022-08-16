@@ -4,82 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesto</title>
+    <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css">
 
 </head>
-
 <body class="page">
     <header class="header">
-        <img src="./image/Vector.png" class="header__logo" alt="логотип место Россия">
-        <img src="./image/Line.svg" class="header__line" alt="прямая линия">
+        <img src="./image/Vector.svg" class="header__logo" alt="логотип место Россия">
     </header>
     <main>
         <section class="profile">
             <img src="./image/Avatar.png" class="profile__avatar" alt="портрет Жак-Ив Кусто">
-            <div class="profile__info">
+            <div class="profile__infor">
                 <div class="profile__name">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__button-open profile__button-open_popup_opened"></button>
+                    <button class="profile__button-open" type="button" aria-label="open profile"></button>
                 </div>
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__button profile__button_popup_opened"></button>
+            <button class="profile__button" type="button" aria-label="add profile"></button>
         </section>
         <section class="elements">
-            <div class="element">
+            <article class="element">
                 <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
                 <div class="element__info">
                     <h2 class="element__title">Карачаевск</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img src="./image/гора_эльбрус.png" class="element__image" alt="гора Эльбрус на фоне заката">
                 <div class="element__info">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img src="./image/домбай.png" class="element__image" alt="фото снежных вершин гор">
                 <div class="element__info">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img src="./image/гора_эльбрус.png" class="element__image" alt="гора Эльбрус на фоне заката">
                 <div class="element__info">
                     <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img src="./image/домбай.png" class="element__image" alt="фото снежных вершин гор">
                 <div class="element__info">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
                 <div class="element__info">
                     <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like" type="button" aria-label="like"></button>
                 </div>
-            </div>
+            </article>
         </section>
-        <footer class="footer">© 2020 Mesto Russia</footer>
     </main>
+        <footer class="footer">
+            <p class="footer__info">© 2020 Mesto Russia</p>
+        </footer>
     <section class="popup">
         <div class="popup__form">
-            <img src="./image/Close_Icon.svg" class="popup__close" alt="крестик закрытия">
+            <button class="popup__close" type="button" aria-label="close popup"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__content">
-                <input class="popup__name" name="name" value="Жак-Ив" id="name" required>
-                <input class="popup__info" name="description" value="Исследователь океана" id="description" required>
-                <button class="popup__button" type="submit">Сохранить</button>
+            <form name="popup-form" class="popup__content">
+                <input class="popup__input popup__input_name" name="name" value="Жак-Ив Кусто" id="name" required>
+                <input class="popup__input popup__input_info" name="description" value="Исследователь океана" id="description" required>
+                <button class="popup__button" type="submit" aria-label="save">Сохранить</button>
             </form>
         </div>
     </section>
