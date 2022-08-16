@@ -11,8 +11,7 @@
     right: -40px;
     max-width: 32px;
     width: 100%;
-    min-height: 32px;
-    
+    min-height: 32px; 
     cursor: pointer;
 }
 .popup__close:hover {
