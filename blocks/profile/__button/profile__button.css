@@ -6,11 +6,11 @@
     background-color: transparent;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    margin: auto;
-    margin-right: 0;
+    margin: auto 0 auto auto;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px 22px;
+    cursor: pointer;
 }
 .profile__button:hover {
     opacity: 0.6;
