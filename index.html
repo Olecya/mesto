@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css">
 
 </head>
+
 <body class="page">
     <header class="header">
         <img src="./image/Vector.svg" class="header__logo" alt="логотип место Россия">
@@ -25,63 +26,56 @@
             <button class="profile__button" type="button" aria-label="add profile"></button>
         </section>
         <section class="elements">
-            <article class="element">
-                <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
-                <div class="element__info">
-                    <h2 class="element__title">Карачаевск</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./image/гора_эльбрус.png" class="element__image" alt="гора Эльбрус на фоне заката">
-                <div class="element__info">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./image/домбай.png" class="element__image" alt="фото снежных вершин гор">
-                <div class="element__info">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./image/гора_эльбрус.png" class="element__image" alt="гора Эльбрус на фоне заката">
-                <div class="element__info">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./image/домбай.png" class="element__image" alt="фото снежных вершин гор">
-                <div class="element__info">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
-                <div class="element__info">
-                    <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__like" type="button" aria-label="like"></button>
-                </div>
-            </article>
         </section>
     </main>
-        <footer class="footer">
-            <p class="footer__info">© 2020 Mesto Russia</p>
-        </footer>
-    <section class="popup">
+    <footer class="footer">
+        <p class="footer__info">© 2020 Mesto Russia</p>
+    </footer>
+    <template class="template">
+        <article class="element">
+            <button class="element__trash" type="button" aria-label="trash"></button>
+            <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
+            <div class="element__info">
+                <h2 class="element__title">Карачаевск</h2>
+                <button class="element__like" type="button" aria-label="like"></button>
+            </div>
+        </article>
+    </template>
+    <!-- про кусто -->
+    <section class="popup popupProfile" id="popupProfile">
         <div class="popup__form">
             <button class="popup__close" type="button" aria-label="close popup"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form name="popup-form" class="popup__content">
-                <input type="text" class="popup__input popup__input_profile_name" name="name" value="Жак-Ив Кусто" id="name" required>
-                <input type="text" class="popup__input popup__input_profile_info" name="description" value="Исследователь океана" id="description" required>
+                <input type="text" class="popup__input popup__input_profile_name" name="name" value="Жак-Ив Кусто"
+                    id="name" required>
+                <input type="text" class="popup__input popup__input_profile_info" name="description"
+                    value="Исследователь океана" id="description" required>
                 <button class="popup__button" type="submit" aria-label="save">Сохранить</button>
             </form>
         </div>
+    </section>
+    <!-- кнопка + -->
+    <section id="popup-card" class="popup popup-card">
+        <div class="popup__form">
+            <button class="popup__close" type="button" aria-label="close popup"></button>
+            <h2 class="popup__title">Новое место</h2>
+            <form name="popup-form" class="popup__content">
+                <input type="text" class="popup__input popup__input_card_name" name="nameСard" value="Название" id="nameСard"
+                    required>
+                <input type="text" class="popup__input popup__input_card_link" name="link" value="Ссылка на картинку"
+                    id="link" required>
+                <button class="popup__button" type="submit" aria-label="save">Создать</button>
+            </form>
+        </div>
+    </section>
+    <!-- фото на весь экран -->
+    <section class="popup popup-photo" id="popup-photo">
+        <figure class="popup__figure">
+            <button class="popup__close" type="button" aria-label="close popup"></button>
+            <img class="popup__photo" src="./image/карачаевск.png" alt="старинное здание на фоне гор">
+            <figcaption class="popup__subtitle">Карачаевск</figcaption>
+        </figure>
     </section>
     <script src="./scripts/index.js"></script>
 </body>
