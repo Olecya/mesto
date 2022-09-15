@@ -47,9 +47,11 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной    TODO  Добавить класс неактивная кнопка
+    buttonElement.classList.add('popup__button_disabled');
     buttonElement.setAttribute('disabled', 'disabled');        // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
   } else {
     // иначе сделай кнопку активной
+    buttonElement.classList.remove('popup__button_disabled');
     buttonElement.removeAttribute("disabled");     // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
   }
 };
@@ -100,6 +102,7 @@ const enableValidationFunc = () => {
 enableValidationFunc();  // запуск блока валидации
 
 function openPopup(popupButton) {
+  overlayClosePopap();
   popupButton.classList.add('popup_opened');     
 }
 
@@ -212,3 +215,21 @@ openButtonProfile.addEventListener('click', () => {
 
 popupContent.addEventListener('submit', handleProfileFormSubmit);
 popupContentCard.addEventListener('submit', handleCardFormSubmit);
+
+const overlayClosePopap = () => {
+  const closePopups = Array.from(popups);
+  closePopups.forEach(popup => popup.addEventListener('click', function(evt) {
+    if(evt.target === popup ) {
+      closePopup(popup);
+    };
+  }));
+}
+
+const closePopapEsc = () => {
+  document.addEventListener('keydown', function(evt) {
+    if(evt.key === 'Escape' ) {
+      closeAllPopups();
+    };  
+  });
+}
+closePopapEsc();
