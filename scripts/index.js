@@ -47,10 +47,10 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной    TODO  Добавить класс неактивная кнопка
-    buttonElement.classList.add('popup__button_disabled');        // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
+    buttonElement.setAttribute('disabled', 'disabled');        // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
   } else {
     // иначе сделай кнопку активной
-    buttonElement.classList.remove('popup__button_disabled');     // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
+    buttonElement.removeAttribute("disabled");     // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
   }
 };
 const hasInvalidInput = (inputList) => {
