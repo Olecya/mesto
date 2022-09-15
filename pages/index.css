@@ -35,10 +35,6 @@
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__photo/popup__photo.css);
 @import url(../blocks/popup/__subtiyle/popup__subtitle.css);
-
 @import url(../blocks/popup/__input-error/popup__input-error.css);
-@import url(../blocks/popup/__input/_name-error/popup__input_name-error.css);
-@import url(../blocks/popup/__input/_info-error/popup__input_info-error.css);
-
-@import url(../blocks/popup/__card/_link-error/popup__card_link-error.css);
-@import url(../blocks/popup/__card/_name-error/popup__card_name-error.css);
+@import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
