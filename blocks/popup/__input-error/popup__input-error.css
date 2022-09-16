@@ -4,7 +4,9 @@
     font-size: 12px;
     line-height: 15px;
     color: #FF0000;
-    visibility: visible;
+    /* visibility: visible; */
     display: block;
     min-height: 30px;
+    position: absolute;
+    
 }

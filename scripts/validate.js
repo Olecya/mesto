@@ -7,29 +7,29 @@ const enableValidation = {
     errorClass: 'popup__error_visible'
   };
   
-  const showInputError = (formElement, inputElement, errorMessage) => {
+  const showInputError = (formElement, inputElement, errorMessage, settings) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add('popup__input_type_error');
+    inputElement.classList.add(settings.inputErrorClass); 
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__error_visible');
+    errorElement.classList.add(settings.errorClass);
   };
   
-  const hideInputError = (formElement, inputElement) => {
+  const hideInputError = (formElement, inputElement, settings) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_type_error');       // enableValidation.inputErrorClass: 'popup__input_type_error'
-    errorElement.classList.remove('popup__error_visible');     // enableValidation.errorClass: 'popup__error_visible'    ???????????????????
+    inputElement.classList.remove(settings.inputErrorClass);      
+    errorElement.classList.remove(settings.errorClass);    
     errorElement.textContent = '';
   };
-  const toggleButtonState = (inputList, buttonElement) => {
+  const toggleButtonState = (inputList, buttonElement, settings) => {
     // Если есть хотя бы один невалидный инпут
     if (hasInvalidInput(inputList)) {
       // сделай кнопку неактивной    TODO  Добавить класс неактивная кнопка
-      buttonElement.classList.add('popup__button_disabled');// enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
+      buttonElement.classList.add(settings.inactiveButtonClass);
       buttonElement.setAttribute('disabled', 'disabled');        
     } else {
       // иначе сделай кнопку активной
-      buttonElement.classList.remove('popup__button_disabled');
-      buttonElement.removeAttribute("disabled");     // enableValidation.inactiveButtonClass: 'popup__button_disabled'   ????? скорее всего вот так
+      buttonElement.classList.remove(settings.inactiveButtonClass);
+      buttonElement.removeAttribute("disabled");     
     }
   };
   const hasInvalidInput = (inputList) => {
@@ -37,43 +37,36 @@ const enableValidation = {
       return !inputElement.validity.valid;
     })
   };
-  const checkInputValidity = (formElement, inputElement) => {
+
+  const checkInputValidity = (formElement, inputElement, settings) => {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage);
+      showInputError(formElement, inputElement, inputElement.validationMessage, settings);
     } else {
-      hideInputError(formElement, inputElement);
+      hideInputError(formElement, inputElement, settings);
     }
   };
   
-  const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));  // enableValidation.inputSelector: '.popup__input'
-    const buttonElement = formElement.querySelector('.popup__button');            // enableValidation.submitButtonSelector: '.popup__button'
+  const setEventListeners = (formElement, settings) => {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));  
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
   
     // чтобы проверить состояние кнопки в самом начале
-    toggleButtonState(inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement, settings);
   
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement);
+        checkInputValidity(formElement, inputElement, settings);
         // чтобы проверять его при изменении любого из полей
-        toggleButtonState(inputList, buttonElement);
+        toggleButtonState(inputList, buttonElement, settings);
       });
     });
   };
   
-  const enableValidationFunc = () => {
-    const formList = Array.from(document.querySelectorAll(enableValidation.formSelector)); // enableValidation.formSelector: '.popup__form',
+  const enableValidationFunc = (settings) => {
+    const formList = Array.from(document.querySelectorAll(settings.formSelector));
     formList.forEach((formElement) => {
-      
-      formElement.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-      });
-      
-      formList.forEach((formElement) => {
-        setEventListeners(formElement);
-      });
-      
+      setEventListeners(formElement, settings);
     });
   };
   
-  enableValidationFunc();  // запуск блока валидации
+  enableValidationFunc(enableValidation);  // запуск блока валидации
