@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const popups = document.querySelectorAll('.popup');// используем для closeAllPopups
 const buttonProfileOpen = document.querySelector('.profile__button-open');
 const popupIdProfile = document.querySelector('.popupProfile');
@@ -24,11 +27,11 @@ const popupButtonCardSave = document.querySelector('.popup__button_card');
 
 function openPopup(popupButton) {
   document.addEventListener('keydown', closeByEsc);;
-  popupButton.classList.add('popup_opened');     
+  popupButton.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
-  document.removeEventListener('keydown', closeByEsc );
+  document.removeEventListener('keydown', closeByEsc);
   popup.classList.remove("popup_opened");
 }
 
@@ -76,7 +79,7 @@ const initialCards = [
   }
 ];
 
-function addElementCard(name, link) {
+function addElementCard(name, link) { 
   const elementCard = templateCardElement.content.cloneNode(true);
   const elementImage = elementCard.querySelector('.element__image');
   elementImage.src = link;
@@ -122,7 +125,7 @@ const openPopupPhoto = function (link, figcaption) {
 
 const buttonDisabled = (buttonElement) => {
   buttonElement.classList.add('popup__button_disabled');
-  buttonElement.setAttribute('disabled','');
+  buttonElement.setAttribute('disabled', '');
 }
 
 buttonCardOpen.addEventListener('click', () => {
@@ -141,8 +144,8 @@ popupProfileFormContent.addEventListener('submit', handleProfileFormSubmit);
 popupContentCard.addEventListener('submit', handleCardFormSubmit);
 
 const closePopapOverlay = () => {
-  popups.forEach(popup => popup.addEventListener('mousedown', function(evt) {
-    if(evt.target === popup || evt.target.classList.contains('popup__close') ) {
+  popups.forEach(popup => popup.addEventListener('mousedown', function (evt) {
+    if (evt.target === popup || evt.target.classList.contains('popup__close')) {
       closePopup(popup);
     };
   }));
@@ -150,8 +153,21 @@ const closePopapOverlay = () => {
 closePopapOverlay();
 
 function closeByEsc(evt) {
-  if (evt.key === 'Escape' ) {
+  if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup); 
+    closePopup(openedPopup);
   }
 }
+
+const enableValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+
+let valid = new FormValidator(enableValidation);
+valid.enableValidation();
