@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import { initialCards } from './constants.js';
 
 const popups = document.querySelectorAll('.popup');// используем для closeAllPopups
 const buttonProfileOpen = document.querySelector('.profile__button-open');
@@ -52,32 +53,7 @@ function handleProfileFormSubmit(evt) {
 }
 
 //Добавление карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+
 
 // раскрытие фото на весь экран
 const openPopupPhoto = (figcaption, link) => {
@@ -87,30 +63,31 @@ const openPopupPhoto = (figcaption, link) => {
   openPopup(popupIdPhoto)
 };
 
+const createCard = (dataCard) => {
+  return new Card(dataCard, '.template', openPopupPhoto);
+}
+
 const handleCardFormSubmit = function (evt) {
   evt.preventDefault();
   const dataCard = {
     name: popupInputCardName.value,
     link: popupInputCardLink.value
   }
-  const card = new Card(dataCard, '.template', openPopupPhoto)
+  const card = createCard(dataCard);
   elementCardGrid.prepend(card.addElementCard());
   evt.target.reset();
   closePopup(popupIdCard);
 };
 
-initialCards.forEach(element => {
-  const card = new Card(element, '.template', openPopupPhoto)
-  elementCardGrid.append(card.addElementCard())
+initialCards.forEach(dataCard => {
+  const card = createCard(dataCard);
+  elementCardGrid.append(card.addElementCard());
 });
 
-const buttonDisabled = (buttonElement) => {
-  buttonElement.classList.add('popup__button_disabled');
-  buttonElement.setAttribute('disabled', '');
-}
-
 buttonCardOpen.addEventListener('click', () => {
-  buttonDisabled(popupButtonCardSave);
+
+  validatorAddCardForm.disableSubmitButton();
+  validatorAddCardForm.resetValidationErrors();
   openPopup(popupIdCard);
   popupContentCard.reset();
 });
@@ -118,20 +95,21 @@ buttonCardOpen.addEventListener('click', () => {
 // открытие попапа редактирования профиля.
 buttonProfileOpen.addEventListener('click', () => {
   inputProfileContent();
+  validatorEditProfileForm.resetValidationErrors();
   openPopup(popupIdProfile);
 });
 
 popupProfileFormContent.addEventListener('submit', handleProfileFormSubmit);
 popupContentCard.addEventListener('submit', handleCardFormSubmit);
 
-const closePopapOverlay = () => {
+const setEventListenersForClosingPopupsByOverlayClick = () => {
   popups.forEach(popup => popup.addEventListener('mousedown', function (evt) {
     if (evt.target === popup || evt.target.classList.contains('popup__close')) {
       closePopup(popup);
     };
   }));
 }
-closePopapOverlay();
+setEventListenersForClosingPopupsByOverlayClick();
 
 function closeByEsc(evt) {
   if (evt.key === 'Escape') {
@@ -140,7 +118,7 @@ function closeByEsc(evt) {
   }
 }
 
-const enableValidation = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -150,7 +128,7 @@ const enableValidation = {
 };
 
 
-const validIdProfil = new FormValidator(enableValidation, popupIdProfile);
-const validIdCard = new FormValidator(enableValidation, popupIdCard);
-validIdProfil.enableValidation();
-validIdCard.enableValidation();
+const validatorEditProfileForm = new FormValidator(validationConfig, popupIdProfile);
+const validatorAddCardForm = new FormValidator(validationConfig, popupIdCard);
+validatorEditProfileForm.enableValidation();
+validatorAddCardForm.enableValidation();
