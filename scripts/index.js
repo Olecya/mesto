@@ -79,32 +79,6 @@ const initialCards = [
   }
 ];
 
-// function addElementCard(name, link) { 
-//   const elementCard = templateCardElement.content.cloneNode(true);
-//   const elementImage = elementCard.querySelector('.element__image');
-//   elementImage.src = link;
-//   elementCard.querySelector('.element__title').textContent = name;
-//   elementImage.setAttribute('alt', name);
-//   elementImage.addEventListener('click', () => {
-//     openPopupPhoto(link, name);
-//   });
-//лайк
-//   const likeElement = elementCard.querySelector('.element__like');
-//   function toggleLike(evt) {
-//     evt.target.classList.toggle('element__like_aktiv');
-//   };
-//   likeElement.addEventListener('click', toggleLike);
-//   // корзина
-//   const deleteCard = elementCard.querySelector('.element__trash');
-//   function deletTrashElementButton(evt) {
-//     const trashElementCard = evt.target.closest('.element');
-//     trashElementCard.remove();
-//   };
-//   deleteCard.addEventListener('click', deletTrashElementButton);
-//   return elementCard;
-// }
-
-
 // раскрытие фото на весь экран
 const openPopupPhoto = (figcaption, link) => {
   popupPhoto.src = link;
@@ -119,14 +93,14 @@ const handleCardFormSubmit = function (evt) {
     name: popupInputCardName.value,
     link: popupInputCardLink.value
   }
-  const card = new Card(dataCard, '.template', openPopupPhoto(dataCard.name, dataCard.link))
+  const card = new Card(dataCard, '.template', openPopupPhoto)
   elementCardGrid.prepend(card.addElementCard());
   evt.target.reset();
   closePopup(popupIdCard);
 };
 
 initialCards.forEach(element => {
-  const card = new Card(element, '.template', openPopupPhoto(element.name, element.link))
+  const card = new Card(element, '.template', openPopupPhoto)
   elementCardGrid.append(card.addElementCard())
 });
 

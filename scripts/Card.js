@@ -11,21 +11,18 @@ export default class Card {
       .querySelector(this._templateSelector)
       .content
       .cloneNode(true);
-
     return cardElement;
   }
 
   addElementCard() { 
     const elementCard = this._getTemplate();
     const elementImage = elementCard.querySelector('.element__image');
-
     elementImage.src = this._link;
     elementImage.alt = this._name;
     elementCard.querySelector('.element__title').textContent = this._name;
-
     elementImage.setAttribute('alt', this._name);
     elementImage.addEventListener('click', () => {
-      this._openPopup(this._link, this._name);
+    this._openPopup(this._name, this._link);
     });
     //лайк
     const likeElement = elementCard.querySelector('.element__like');
