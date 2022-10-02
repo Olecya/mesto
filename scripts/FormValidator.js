@@ -60,9 +60,6 @@ export default class FormValidator {
     }
 
     enableValidation() {
-        // const formList = this._formElement;
-        // formList.forEach((formElement) => {
         this._setEventListeners();
-        // });
     }
 }
