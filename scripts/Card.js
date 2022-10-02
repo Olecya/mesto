@@ -1,88 +1,45 @@
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openPopup) {
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
+    this._openPopup = openPopup;
   }
-  
-    _getTemplate() {
-      const cardElement = document
-        .querySelector(this._templateSelector)
-        .content
-        .querySelector('.card')
-        .cloneNode(true);
-  
-      return cardElement;
-    }
-  
-    _handleOpenPopup() {
-      popupImage.src = this._image;
-      popupElement.classList.add('popup_is-opened');
-    }
-  
-    _handleClosePopup() {
-      popupImage.src = '';
-      popupElement.classList.remove('popup_is-opened');
-    }
-  
-    _setEventListeners() {
-      this._element.addEventListener('click', () => {
-        this._handleOpenPopup();
-      });
-  
-      popupCloseButton.addEventListener('click', () => {
-        this._handleClosePopup();
-      });
-    }
+
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._templateSelector)
+      .content
+      .cloneNode(true);
+
+    return cardElement;
   }
-  
-  class DefaultCard extends Card {
-    constructor(data, templateSelector) {
-      super(templateSelector);
-      this._title = data.title;
-      this._description = data.description;
-      this._image = data.image;
-    }
-    
-    generateCard() {
-      this._element = super._getTemplate();
-      super._setEventListeners();
-  
-      this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
-      this._element.querySelector('.card__title').textContent = this._title;
-  
-      return this._element;
-    }
-    
-    _handleOpenPopup() {
-      popupCaption.textContent = this._description;
-      super._handleOpenPopup();
-    }
-    
-    _handleClosePopup() {
-      popupCaption.textContent = '';
-      super._handleClosePopup();
-    }
+
+  addElementCard() { 
+    const elementCard = this._getTemplate();
+    const elementImage = elementCard.querySelector('.element__image');
+
+    elementImage.src = this._link;
+    elementImage.alt = this._name;
+    elementCard.querySelector('.element__title').textContent = this._name;
+
+    elementImage.setAttribute('alt', this._name);
+    elementImage.addEventListener('click', () => {
+      this._openPopup(this._link, this._name);
+    });
+    //лайк
+    const likeElement = elementCard.querySelector('.element__like');
+    function toggleLike(evt) {
+      evt.target.classList.toggle('element__like_aktiv');
+    };
+    likeElement.addEventListener('click', toggleLike);
+    // корзина
+    const deleteCard = elementCard.querySelector('.element__trash');
+    function deletTrashElementButton(evt) {
+      const trashElementCard = evt.target.closest('.element');
+      trashElementCard.remove();
+    };
+    deleteCard.addEventListener('click', deletTrashElementButton);
+    return elementCard;
   }
-  
-  class HorizontalCard extends Card {
-    constructor(data, templateSelector) {
-      super(templateSelector);
-      this._title = data.title;
-      this._description = data.description;
-      this._price = data.price;
-      this._image = data.image;
-    }
-  
-    generateCard() {
-      this._element = super._getTemplate();
-      super._setEventListeners();
-  
-      this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
-      this._element.querySelector('.card__title').textContent = this._title;
-      this._element.querySelector('.card__info').textContent = this._description;
-      this._element.querySelector('.card__price-property').textContent = this._price;
-  
-      return this._element;
-    }
-  }
+}
