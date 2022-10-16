@@ -32,12 +32,12 @@ const popupPhoto = document.querySelector('.popup__photo');
 
 
 
-function closeByEsc(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// function closeByEsc(evt) {
+//   if (evt.key === 'Escape') {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
 function openPopup(popupButton) {
   // document.addEventListener('keydown', closeByEsc);
@@ -47,12 +47,12 @@ function openPopup(popupButton) {
   popup.setEventListeners();
 }
 
-function closePopup(popup) {
+// function closePopup(popup) {
   // document.removeEventListener('keydown', closeByEsc);
   // popup.classList.remove("popup_opened");
 
 
-}
+// }
 
 // берет значения из инпутов и меняет на странице
 function inputProfileContent() {
@@ -80,9 +80,7 @@ const openPopupPhoto = (figcaption, link) => {
   popupSubtitle.textContent = figcaption;
   const popup = new Popup(popupIdPhoto);
   popup.open();
-  // popup.setEventListeners.bind(popup);
   popup.setEventListeners();
-  // openPopup()
 };
 
 const createCard = (dataCard) => {
