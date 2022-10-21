@@ -1,4 +1,4 @@
-const popups = document.querySelectorAll('.popup');
+// const popups = document.querySelectorAll('.popup');
 
 export default class Popup {
     constructor(popupSelector) {
@@ -31,6 +31,7 @@ export default class Popup {
     }
 
     setEventListeners() {
+        // console.log('super');
         this._popupSelector.addEventListener('mousedown', (evt) => {
 
             if (evt.target === this._popupSelector || evt.target.classList.contains('popup__close')) {
