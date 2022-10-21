@@ -59,11 +59,12 @@ function inputProfileContent() {
 // сабмит на форму профайла
 function handleProfileFormSubmit(evt, data) {
   evt.preventDefault();
-  console.log(evt);
-  const nameInput = popapInputProfileName.value;
-  const jobInput = popapInputProfileInfo.value;
-  profileTitle.textContent = nameInput;
-  profileSubtitle.textContent = jobInput;
+  // console.log(evt);
+  // const nameInput = popapInputProfileName.value;
+  // const jobInput = popapInputProfileInfo.value;
+console.log(data);
+  profileTitle.textContent = data.name;
+  profileSubtitle.textContent = data.description;
   // closePopup(popupIdProfile);
 }
 
@@ -71,7 +72,7 @@ buttonProfileOpen.addEventListener('click', () => {
   const popup = new PopupWithForm (popupIdProfile, handleProfileFormSubmit);
   inputProfileContent();
   validatorEditProfileForm.resetValidationErrors();
-  openPopup(popup);
+  popup.open();
   // popupProfileFormContent.addEventListener('submit', handleProfileFormSubmit, { once: true });
 });
 
