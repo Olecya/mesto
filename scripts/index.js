@@ -27,7 +27,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 // раскрытие фото на весь экран
-const openPopupPhoto = (figcaption, link) => {
+const handleCardClick = (figcaption, link) => {
 
   const popup = new PopupWithImage(popupIdPhoto);
   popup.open(figcaption, link);
@@ -35,7 +35,7 @@ const openPopupPhoto = (figcaption, link) => {
 };
 //Добавление карточек
 const createCard = (dataCard) => {
-  return new Card(dataCard, '.template', openPopupPhoto);
+  return new Card(dataCard, '.template', handleCardClick);
 }
 
 initialCards.forEach(dataCard => {

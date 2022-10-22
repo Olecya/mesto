@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector, handleCardClick) {
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
-    this._openPopup = openPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -25,7 +25,7 @@ export default class Card {
 
   _setEventListeners(elementImage, likeElement, deleteCard) {
     elementImage.addEventListener('click', () => {
-      this._openPopup(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
     likeElement.addEventListener('click', this._toggleLike);
     deleteCard.addEventListener('click', this._deleteCard);
@@ -49,3 +49,5 @@ export default class Card {
     return elementCard;
   }
 }
+
+// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.
