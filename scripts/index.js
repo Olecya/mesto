@@ -1,6 +1,7 @@
+import UserInfo from './UserInfo.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import Popup from './Popup.js';
+// import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import {
   initialCards,
@@ -21,10 +22,14 @@ const popapInputProfileInfo = document.querySelector('.popup__input_profile_info
 // const popupInputCardName = popupContentCard.querySelector('.popup__input_card_name');
 // const popupInputCardLink = popupContentCard.querySelector('.popup__input_card_link');
 const elementCardGrid = document.querySelector('.elements');
-const popupProfileFormElement = popupIdProfile.querySelector('.popup__form');
-const popupProfileFormContent = popupProfileFormElement.querySelector('.popup__content');
+// const popupProfileFormElement = popupIdProfile.querySelector('.popup__form');
+// const popupProfileFormContent = popupProfileFormElement.querySelector('.popup__content');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+const userInfo = new UserInfo(profileTitle, profileSubtitle);
+
+// userInfo.setUserInfo('','');
+
 
 // раскрытие фото на весь экран
 const handleCardClick = (figcaption, link) => {
@@ -44,63 +49,50 @@ initialCards.forEach(dataCard => {
 });
 
 
-function openPopup(popup) {  
+// function openPopup(popup) {  
   
-  popup.open();
-  // popup.setEventListeners();
-}
+//   popup.open();
+//   // popup.setEventListeners();
+// }
 
 // берет значения из инпутов и меняет на странице
+
 function inputProfileContent() {
-  popapInputProfileName.value = profileTitle.textContent;
-  popapInputProfileInfo.value = profileSubtitle.textContent;
+  const dataUser = userInfo.getUserInfo();
+  popapInputProfileName.value = dataUser.name;
+  popapInputProfileInfo.value = dataUser.description;
 }
 
 // сабмит на форму профайла
 function handleProfileFormSubmit(evt, data) {
   evt.preventDefault();
-  // console.log(evt);
-  // const nameInput = popapInputProfileName.value;
-  // const jobInput = popapInputProfileInfo.value;
-console.log(data);
-  profileTitle.textContent = data.name;
-  profileSubtitle.textContent = data.description;
+  userInfo.setUserInfo(data);
+// console.log(data);
+//   profileTitle.textContent = data.name;
+//   profileSubtitle.textContent = data.description;
   // closePopup(popupIdProfile);
 }
 
 buttonProfileOpen.addEventListener('click', () => {
   const popup = new PopupWithForm (popupIdProfile, handleProfileFormSubmit);
+  
   inputProfileContent();
   validatorEditProfileForm.resetValidationErrors();
   popup.open();
-  // popupProfileFormContent.addEventListener('submit', handleProfileFormSubmit, { once: true });
 });
 
 const handleCardFormSubmit = (evt, dataCard) => {
   evt.preventDefault();
-  // const dataCard = {
-  //   name: popupInputCardName.value,
-  //   link: popupInputCardLink.value
-  // }
-  // console.log(evt);
   const card = createCard(dataCard);
-  // elementCardGrid.append(card.addElementCard());
   elementCardGrid.prepend(card.addElementCard());
-  // evt.target.reset();
-  // closePopup(popupIdCard);
 };
 
 buttonCardOpen.addEventListener('click', () => {
-  
   const popup = new PopupWithForm (popupIdCard, handleCardFormSubmit);
   validatorAddCardForm.disableSubmitButton();
   validatorAddCardForm.resetValidationErrors();
   popup.open();
-  // popupContentCard.addEventListener('submit', handleCardFormSubmit);
-  // popupContentCard.reset();
 });
-
-// открытие попапа редактирования профиля.
 
 
 
