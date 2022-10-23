@@ -44,10 +44,8 @@ export default class Card {
 
     // корзина
     const trashIcon = elementCard.querySelector('.element__trash');
-    
+
     this._setEventListeners(elementImage, likeElement, trashIcon);
     return elementCard;
   }
 }
-
-// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.

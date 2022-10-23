@@ -5,27 +5,22 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import {
   initialCards,
-  validationConfig
-} from './constants.js';
+  validationConfig,
+  buttonProfileOpen,
+  popupIdProfile,
+  popupIdCard,
+  popupIdPhoto,
+  buttonCardOpen,
+  popapInputProfileName,
+  popapInputProfileInfo,
+  elementCardGrid,
+  profileTitle,
+  profileSubtitle,
+
+} from '../utils/constants.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
-// const popups = document.querySelectorAll('.popup');// используем для closeAllPopups
-const buttonProfileOpen = document.querySelector('.profile__button-open');
-const popupIdProfile = document.querySelector('.popupProfile');
-const popupIdCard = document.querySelector('.popup-card');
-const popupIdPhoto = document.querySelector('.popup-photo');
-const buttonCardOpen = document.querySelector('.profile__button');
-const popapInputProfileName = document.querySelector('.popup__input_profile_name');
-const popapInputProfileInfo = document.querySelector('.popup__input_profile_info');
-// const popupCardFormElement = popupIdCard.querySelector('.popup__form');
-// const popupContentCard = popupCardFormElement.querySelector('.popup__content');
-// const popupInputCardName = popupContentCard.querySelector('.popup__input_card_name');
-// const popupInputCardLink = popupContentCard.querySelector('.popup__input_card_link');
-const elementCardGrid = document.querySelector('.elements');
-// const popupProfileFormElement = popupIdProfile.querySelector('.popup__form');
-// const popupProfileFormContent = popupProfileFormElement.querySelector('.popup__content');
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
+
 const userInfo = new UserInfo(profileTitle, profileSubtitle);
 
 // раскрытие фото на весь экран
@@ -35,32 +30,24 @@ const handleCardClick = (figcaption, link) => {
   popup.open(figcaption, link);
   popup.setEventListeners();
 };
+
 const createCard = (dataCard) => {
   return new Card(dataCard, '.template', handleCardClick);
 }
+
 const cardsSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      // console.log(item);
       cardsSection.addItem(createCard(item).addElementCard())
     },
   },
   elementCardGrid
 );
 
-//Добавление карточек
-
-
 cardsSection.renderItems();
 
-// initialCards.forEach(dataCard => {
-//   const card = createCard(dataCard);
-//   elementCardGrid.append(card.addElementCard());
-// });
-
 // берет значения из инпутов и меняет на странице
-
 function inputProfileContent() {
   const dataUser = userInfo.getUserInfo();
   popapInputProfileName.value = dataUser.name;

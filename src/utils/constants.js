@@ -33,3 +33,17 @@ export const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 };
+
+export const buttonProfileOpen = document.querySelector('.profile__button-open');
+export const popupIdProfile = document.querySelector('.popupProfile');
+export const popupIdCard = document.querySelector('.popup-card');
+export const popupIdPhoto = document.querySelector('.popup-photo');
+export const buttonCardOpen = document.querySelector('.profile__button');
+export const popapInputProfileName = document.querySelector('.popup__input_profile_name');
+export const popapInputProfileInfo = document.querySelector('.popup__input_profile_info');
+export const elementCardGrid = document.querySelector('.elements');
+export const profileTitle = document.querySelector('.profile__title');
+export const profileSubtitle = document.querySelector('.profile__subtitle');
+
+export const popupPhoto = document.querySelector('.popup__photo');
+export const popupSubtitle = document.querySelector('.popup__subtitle')
