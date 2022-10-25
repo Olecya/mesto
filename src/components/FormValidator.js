@@ -1,11 +1,10 @@
 export default class FormValidator {
 
-    constructor(settings, element) {
+    constructor(settings, formElement) {
         this._settings = settings;
-        this._elemment = element;
-        this._formElement = element.querySelector(this._settings.formSelector);
-        this._inputList = Array.from(element.querySelectorAll(this._settings.inputSelector));
-        this._buttonElement = element.querySelector(this._settings.submitButtonSelector);
+        this._formElement = formElement.querySelector(this._settings.formSelector);
+        this._inputList = Array.from(formElement.querySelectorAll(this._settings.inputSelector));
+        this._buttonElement = formElement.querySelector(this._settings.submitButtonSelector);
     }
 
     _showInputError(inputElement, errorMessage) {
@@ -25,10 +24,10 @@ export default class FormValidator {
     _toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._buttonElement.classList.add(this._settings.inactiveButtonClass);
-            this._buttonElement.setAttribute('disabled', 'disabled');
+            this._buttonElement.disabled = 'disabled';
         } else {
             this._buttonElement.classList.remove(this._settings.inactiveButtonClass);
-            this._buttonElement.removeAttribute("disabled");
+            this._buttonElement.disabled = null;
         }
     }
     _hasInvalidInput() {
@@ -65,7 +64,7 @@ export default class FormValidator {
 
     disableSubmitButton = () => {
         this._buttonElement.classList.add('popup__button_disabled');
-        this._buttonElement.setAttribute('disabled', '');
+        this._buttonElement.disabled = null;
     }
 
     resetValidationErrors = () => {

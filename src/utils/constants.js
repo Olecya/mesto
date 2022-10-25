@@ -44,6 +44,3 @@ export const popapInputProfileInfo = document.querySelector('.popup__input_profi
 export const elementCardGrid = document.querySelector('.elements');
 export const profileTitle = document.querySelector('.profile__title');
 export const profileSubtitle = document.querySelector('.profile__subtitle');
-
-export const popupPhoto = document.querySelector('.popup__photo');
-export const popupSubtitle = document.querySelector('.popup__subtitle')

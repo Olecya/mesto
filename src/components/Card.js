@@ -3,49 +3,59 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._name = data.name;
     this._link = data.link;
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;    
   }
 
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
       .content
+      .querySelector('.element')
       .cloneNode(true);
     return cardElement;
   }
 
-  _toggleLike(evt) {
-    evt.target.classList.toggle('element__like_aktiv');
+  _handleToggleLike () {
+    this.likeElement.classList.toggle('element__like_aktiv');
   };
 
-  _deleteCard(evt) {
-    const trashElementCard = evt.target.closest('.element');
-    trashElementCard.remove();
+  _handleDeleteCard = () => {
+    this._elementCard.remove();
+    this._elementCard = null;
   };
 
-  _setEventListeners(elementImage, likeElement, deleteCard) {
-    elementImage.addEventListener('click', () => {
+  _setEventListeners() {
+
+    this._elementImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
-    likeElement.addEventListener('click', this._toggleLike);
-    deleteCard.addEventListener('click', this._deleteCard);
+
+    this.likeElement.addEventListener('click', () => {
+      console.log();
+      this._handleToggleLike();
+    });
+
+    this.trashIcon.addEventListener('click', () => {
+      this._handleDeleteCard();
+    }
+    );
   }
 
-  addElementCard() {
-    const elementCard = this._getTemplate();
-    const elementImage = elementCard.querySelector('.element__image');
-    elementImage.src = this._link;
-    elementImage.alt = this._name;
-    elementCard.querySelector('.element__title').textContent = this._name;
-    elementImage.setAttribute('alt', this._name);
+  createCard() {
+    this._elementCard = this._getTemplate();
+    this._elementImage = this._elementCard.querySelector('.element__image');
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
+    this._elementCard.querySelector('.element__title').textContent = this._name;
 
     //лайк
-    const likeElement = elementCard.querySelector('.element__like');
+    this.likeElement = this._elementCard.querySelector('.element__like');  
 
     // корзина
-    const trashIcon = elementCard.querySelector('.element__trash');
+    this.trashIcon = this._elementCard.querySelector('.element__trash');
 
-    this._setEventListeners(elementImage, likeElement, trashIcon);
-    return elementCard;
+    this._setEventListeners();
+    // console.log(this._elementCard);
+    return this._elementCard;
   }
 }
