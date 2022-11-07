@@ -5,6 +5,10 @@ export default class UserInfo {
         this._profileSubtitle = description;
     }
 
+    getUserId = () => {
+        return this._profile_id;
+    }
+
     getUserInfo = () => {
         return {
             name: this._profileTitle.textContent,
@@ -13,10 +17,15 @@ export default class UserInfo {
     }
 
     setUserInfo = (data) => {
-        // console.log(this);
-        // console.log(this._profileSubtitle.textContent);
-
         this._profileTitle.textContent = data.name;
         this._profileSubtitle.textContent = data.description;
+    }
+
+    setUserInfoByApi = (profileJSON) => {
+            this._profileTitle.textContent = profileJSON.name;
+            this._profileSubtitle.textContent = profileJSON.about;
+            this._profileAvatar = profileJSON.avatar;
+            this._profile_id = profileJSON._id;
+            this._profileCohort = profileJSON.cohort;
     }
 }

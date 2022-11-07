@@ -40,3 +40,7 @@
 @import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/popup-photo.css);
+@import url(../blocks/profile/__avatar-button/profile__avatar-button.css);
+@import url(../blocks/profile/__avatar-box/profile__avatar-box.css);
+@import url(../blocks/element/__like-number/element__like-number.css);
+@import url(../blocks/element/__like-box/element__like-box.css);

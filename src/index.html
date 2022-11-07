@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+    <link rel="stylesheet" href="./pages/index.css">
 
 </head>
 
 <body class="page">
     <header class="header">
-        <img src="<%=require('./image/Vector.svg') %>"  class="header__logo" alt="логотип место Россия">
+        <img src="./image/Vector.svg" class="header__logo" alt="логотип место Россия">
+        <!-- <img src="<%=require('./image/Vector.svg') %>"  class="header__logo" alt="логотип место Россия"> -->
     </header>
     <main>
         <section class="profile">
-            <img src="<%=require('./image/Avatar.png') %>" class="profile__avatar" alt="портрет Жак-Ив Кусто">
+            <div class="profile__avatar-box">
+                <!-- <img src="<%=require('./image/Avatar.png') %>" class="profile__avatar" alt="портрет Жак-Ив Кусто"> -->
+                <img src="./image/Avatar.png" class="profile__avatar" alt="портрет Жак-Ив Кусто">
+                <button class="profile__avatar-button" type="button"></button>
+            </div>
             <div class="profile__infor">
                 <div class="profile__name">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -31,13 +36,19 @@
     <footer class="footer">
         <p class="footer__info">© 2020 Mesto Russia</p>
     </footer>
+    <!-- Card -->
     <template class="template">
         <article class="element">
             <button class="element__trash" type="button" aria-label="trash"></button>
-            <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор">
+            <!-- <img src="./image/карачаевск.png" class="element__image" alt="старинное здание на фоне гор"> -->
+            <img class="element__image">
+
             <div class="element__info">
                 <h2 class="element__title">Карачаевск</h2>
-                <button class="element__like" type="button" aria-label="like"></button>
+                <div class="element__like-box">
+                    <button class="element__like" type="button" aria-label="like"></button>
+                    <p class="element__like-number">0</p>
+                </div>
             </div>
         </article>
     </template>
@@ -93,7 +104,33 @@
             <figcaption class="popup__subtitle">Карачаевск</figcaption>
         </figure>
     </section>
-    <!-- <script type="module" src="./pages/index.js"></script> -->
+    <!-- редактирование аватар -->
+    <section id="popup-avatar" class="popup popup-avatar">
+        <div class="popup__form">
+            <button class="popup__close" type="button" aria-label="close popup"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form name="popup-form" class="popup__content">
+                <label class="popup__content-form">
+                    <input type="url" class="popup__input popup__input_avatar_link" name="link-avatar"
+                        placeholder="Ссылка на новый аватар" id="popup__avatar_link" required>
+                    <span class="popup__input-error" id="popup__avatar_link-error"></span>
+                </label>
+                <button class="popup__button popup__button_avatar" type="submit" aria-label="save"
+                    disabled>Сохранить</button>
+            </form>
+        </div>
+    </section>
+    <!-- попап при нажатии на корзину -->
+    <section id="popup-trash" class="popup popup-trash">
+        <div class="popup__form">
+            <button class="popup__close" type="button" aria-label="close popup"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <form name="popup-form" class="popup__content">
+                <button class="popup__button popup__button_trash" type="submit">Да</button>
+            </form>
+        </div>
+    </section>
+    <script type="module" src="./pages/index.js"></script>
     <!-- <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script> -->
 </body>

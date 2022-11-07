@@ -1,7 +1,7 @@
 export default class Section {
 
-    constructor({ items, renderer }, containerSelector) {
-        this._initialArray = items;
+    constructor({ renderer }, containerSelector) {
+        // this._initialArray = items;
         this._renderer = renderer;
         this._container = containerSelector;
     }
@@ -14,9 +14,10 @@ export default class Section {
         this._container.innerHTML = '';
     }
 
-    renderItems() {
+    renderItems = (items) => {
+        
         this._clear();
-        this._initialArray.forEach(item => {
+        items.forEach(item => {
             this._renderer(item);
         });
     }
