@@ -16,23 +16,28 @@ export default class PopupWithConfirmation extends Popup {
     this._hendler = hendler;
     this.popupConfirmation = false;
     console.log(this.popupConfirmation);
-    this._buttonElement.focus()
+    this._buttonElement.focus();
+    // setTimeout(() => {this._buttonElement.focus()}, 50);
+    
+    // this._buttonElement.focus()
 
     // this.setEventListeners();
   }
 
-  setEventListeners() {
-    // console.log(this._buttonElement.focus())
-    this._popupElement.addEventListener('click', (evt) => {
-      evt.preventDefault();
+  _handleConfirmation = (evt) => {
+    evt.preventDefault();
       this.popupConfirmation = true;
       console.log(this.popupConfirmation);
       this.close();
-    });
+  }
 
+  setEventListeners() {
+    super.setEventListeners();
+    this._formElement.addEventListener('submit', this._handleConfirmation);
   }
 
   close() {
+    this._formElement.removeEventListener('submit', this._handleConfirmation);
     this.getHendler();
     super.close();
   }

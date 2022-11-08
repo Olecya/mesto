@@ -4,10 +4,10 @@ export default class Api {
         this._headers = headers;
     }
 
-    _renderLoading = (bool, battonElement) => { 
+    _renderLoading = (bool, battonElement) => {
         bool ?
-        battonElement.textContent = "Сохранение..." :
-        battonElement.textContent = "Сохранить";
+            battonElement.textContent = "Сохранение..." :
+            battonElement.textContent = "Сохранить";
     }
 
     getInitialCards() {
@@ -54,51 +54,12 @@ export default class Api {
     }
 
     deleteCard = (cardId) => {
-        fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${cardId}`, {
+        return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
                 authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f'
             },
         });
-    }
-
-    patchProfile(profileJSON, battonElement) {
-        this._renderLoading(true, battonElement);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
-            method: 'PATCH',
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: profileJSON.name,
-                about: profileJSON.description,
-            })
-        })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            })
-            .finally(() => this._renderLoading(false, battonElement));
-    }
-
-    getProfile() {
-        // this._renderLoading(true);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            })
-            // .finally(() => this._renderLoading(false));;
     }
 
     toggleLikeCard = (cardId, method) => {
@@ -118,6 +79,59 @@ export default class Api {
             .catch((err) => {
                 renderError(`Ошибка: ${err}`);
             });
+    }
+
+    getProfile() {
+        // this._renderLoading(true);
+        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
+            headers: {
+                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+            .catch((err) => {
+                renderError(`Ошибка: ${err}`);
+            })
+        // .finally(() => this._renderLoading(false));;
+    }
+
+    patchProfile(profileJSON, battonElement) {
+        this._renderLoading(true, battonElement);
+        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
+            method: 'PATCH',
+            headers: {
+                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: profileJSON.name,
+                about: profileJSON.description,
+            })
+        })
+            .catch((err) => { renderError(`Ошибка: ${err}`) })
+            .finally(() => this._renderLoading(false, battonElement));
+    }
+
+    patchProfileAvatar(avatarUrl, battonElement) {
+        this._renderLoading(true, battonElement);
+        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me/avatar', {
+            method: 'PATCH',
+            headers: {
+                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: avatarUrl.avatar,
+            })
+        })
+            .catch((err) => { renderError(`Ошибка: ${err}`) })
+            .finally(() => this._renderLoading(false, battonElement));
     }
 
 }

@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 
 </head>
 
 <body class="page">
     <header class="header">
-        <img src="./image/Vector.svg" class="header__logo" alt="логотип место Россия">
-        <!-- <img src="<%=require('./image/Vector.svg') %>"  class="header__logo" alt="логотип место Россия"> -->
+        <!-- <img src="./image/Vector.svg" class="header__logo" alt="логотип место Россия"> -->
+        <img src="<%=require('./image/Vector.svg') %>"  class="header__logo" alt="логотип место Россия">
     </header>
     <main>
         <section class="profile">
             <div class="profile__avatar-box">
-                <!-- <img src="<%=require('./image/Avatar.png') %>" class="profile__avatar" alt="портрет Жак-Ив Кусто"> -->
-                <img src="./image/Avatar.png" class="profile__avatar" alt="портрет Жак-Ив Кусто">
+                <img src="<%=require('./image/Avatar.png') %>" class="profile__avatar" alt="портрет Жак-Ив Кусто">
+                <!-- <img src="./image/Avatar.png" class="profile__avatar" alt="портрет Жак-Ив Кусто"> -->
                 <button class="profile__avatar-button" type="button"></button>
             </div>
             <div class="profile__infor">
@@ -111,7 +111,7 @@
             <h2 class="popup__title">Обновить аватар</h2>
             <form name="popup-form" class="popup__content">
                 <label class="popup__content-form">
-                    <input type="url" class="popup__input popup__input_avatar_link" name="link-avatar"
+                    <input type="url" class="popup__input popup__input_avatar_link" name="avatar"
                         placeholder="Ссылка на новый аватар" id="popup__avatar_link" required>
                     <span class="popup__input-error" id="popup__avatar_link-error"></span>
                 </label>
@@ -130,7 +130,7 @@
             </form>
         </div>
     </section>
-    <script type="module" src="./pages/index.js"></script>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
     <!-- <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script> -->
 </body>

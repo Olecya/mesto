@@ -46,6 +46,14 @@ export const profileTitle = document.querySelector('.profile__title');
 export const profileSubtitle = document.querySelector('.profile__subtitle');
 
 export const popupAvatarId = document.querySelector('.popup-avatar');
-export const buttonAvatarId = document.querySelector('.profile__avatar-box');
-export const buttonAvatarSaveId = document.querySelector('.popup__button_avatar');
+export const profileAvatarBox = document.querySelector('.profile__avatar-box');
+export const profileAvatar = profileAvatarBox.querySelector('.profile__avatar');
+export const buttonAvatarSave = document.querySelector('.popup__button_avatar');
 export const popupTrashCard = document.querySelector('.popup-trash');
+
+export const ubaseUrl = 'https://mesto.nomoreparties.co/v1/cohort-52';
+export const headers = 
+{
+  authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+  'Content-Type': 'application/json'
+};
