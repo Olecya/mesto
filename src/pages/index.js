@@ -36,7 +36,6 @@ const api = new Api();
 // берет значения из userinfo и меняет на странице
 function inputProfileContent() {
     const dataUser = userInfo.getUserInfo();
-    console.log(userInfo._getInfo());
     popapInputProfileName.value = dataUser.name;
     popapInputProfileInfo.value = dataUser.description;
     if (dataUser.avatar) profileAvatar.src = dataUser.avatar;
@@ -128,7 +127,12 @@ api.getInitialCards()
 const handleAvatarSave = (evt, dataAvatar, battonElement) => {
     evt.preventDefault();
     api.patchProfileAvatar(dataAvatar, battonElement)
-        .then(() => inputProfileContent());
+    .then(() => {return api.getProfile()})
+    .then((res) => {
+        userInfo.setUserInfoByApi(res);
+        return userInfo;
+    })
+    .then(() => inputProfileContent());
 }
 const handleAvatarButton = () => {
     validatorPopupAvatar.resetValidationErrors();
