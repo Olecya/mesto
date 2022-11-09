@@ -22,6 +22,7 @@ import {
     profileAvatarBox,
     profileAvatar,
     popupTrashCard,
+    apiOptions,
 
 } from '../utils/constants.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -30,7 +31,24 @@ import Api from '../components/Api.js';
 const popupImage = new PopupWithImage(popupIdPhoto);
 const popupTrash = new PopupWithConfirmation(popupTrashCard);
 const userInfo = new UserInfo(profileTitle, profileSubtitle);
-const api = new Api();
+const api = new Api(apiOptions);
+
+const section = new Section(
+    {
+        renderer: (cardData) => {
+            section.addItem(createCard(cardData))
+        },
+    },
+    elementCardGrid
+);
+
+Promise.all([api.getProfile(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+        userInfo.setUserInfoByApi(userData);
+        inputProfileContent()
+        section.renderItems(cards);
+    })
+    .catch((err) => console.log(err));
 
 // Работа с профилем
 // берет значения из userinfo и меняет на странице
@@ -41,22 +59,12 @@ function inputProfileContent() {
     if (dataUser.avatar) profileAvatar.src = dataUser.avatar;
 }
 
-api.getProfile()
-    .then((res) => {
-        userInfo.setUserInfoByApi(res);
-        return userInfo;
-    })
-    .then(() => inputProfileContent());
-
 // раскрытие фото на весь экран
-const handleCardClick = (figcaption, link, cardId) => {
-    console.log(cardId);
+const handleCardClick = (figcaption, link) => {
     popupImage.open(figcaption, link);
-    popupImage.setEventListeners();
 };
 
 const createCard = (dataCard) => {
-    // console.log(dataCard);
     return new Card(
         dataCard,
         '.template',
@@ -69,22 +77,28 @@ const createCard = (dataCard) => {
 }
 
 // хендлеры на формы
-function handleProfileFormSubmit(evt, data, battonElement) {
-    console.log(data);
+function handleProfileFormSubmit(evt, data) {
+    // console.log(data);
+    popupWithFormIdProfile.renderLoading(true);
     evt.preventDefault();
-    userInfo.setUserInfo(data);
-    api.patchProfile(data, battonElement);
+    ;
+    api.patchProfile(data)
+        .then((res) => { userInfo.setUserInfoByApi(res) })
+        .then(() => popupWithFormIdProfile.close())
+        .catch((err) => { console.log(`Ошибка: ${err}`) })
+        .finally(() => popupWithFormIdProfile.renderLoading(false));;
 }
 //кнопка +
-const handleCardFormSubmit = (evt, dataCard, battonElement) => {
+const handleCardFormSubmit = (evt, dataCard) => {
     evt.preventDefault();
-    api.postNewCard(dataCard, battonElement)
-        .then(res => {
-            return createCard(res)
-        }).
-        then(card => {
-            return elementCardGrid.prepend(card)
-        })
+    popupWithFormIdCard.renderLoading(true);
+    api.postNewCard(dataCard)
+        .then(res => { return createCard(res) })
+        // .then(card => { return elementCardGrid.prepend(card) })
+        .then(card => { return section.prependItem(card) })
+        .then(() => { popupWithFormIdCard.close() })
+        .catch((err) => { console.log(`Ошибка: ${err}`) })
+        .finally(() => popupWithFormIdCard.renderLoading(false));
 };
 const handleButtonProfileOpen = () => {
     inputProfileContent();
@@ -105,40 +119,49 @@ const popupWithFormIdCard = new PopupWithForm(popupIdCard, handleCardFormSubmit)
 
 const validatorEditProfileForm = new FormValidator(validationConfig, popupIdProfile);
 const validatorAddCardForm = new FormValidator(validationConfig, popupIdCard);
+const validatorPopupAvatar = new FormValidator(validationConfig, popupAvatarId);
+
 validatorEditProfileForm.enableValidation();
 validatorAddCardForm.enableValidation();
 
-//добавление карточек
-const section = new Section(
-    {
-        renderer: (cardData) => {
-            section.addItem(createCard(cardData))
-        },
-    },
-    elementCardGrid
-);
-
-api.getInitialCards()
-    .then((res) => {
-        section.renderItems(res);
-    });
-
 // Редактор аватара
-const handleAvatarSave = (evt, dataAvatar, battonElement) => {
+const handleAvatarSave = (evt, dataAvatar) => {
     evt.preventDefault();
-    api.patchProfileAvatar(dataAvatar, battonElement)
-    .then(() => {return api.getProfile()})
-    .then((res) => {
-        userInfo.setUserInfoByApi(res);
-        return userInfo;
-    })
-    .then(() => inputProfileContent());
+    popupAvatar.renderLoading(true);
+    api.patchProfileAvatar(dataAvatar)
+        .then(() => { return api.getProfile() })
+        .then((res) => { userInfo.setUserInfoByApi(res); })
+        .then(() => inputProfileContent())
+        .then(() => popupAvatar.close())
+        .catch((err) => { console.log(`Ошибка: ${err}`) })
+        .finally(() => popupAvatar.renderLoading(false));
 }
 const handleAvatarButton = () => {
     validatorPopupAvatar.resetValidationErrors();
     popupAvatar.open();
 }
 const popupAvatar = new PopupWithForm(popupAvatarId, handleAvatarSave);
-const validatorPopupAvatar = new FormValidator(validationConfig, popupAvatarId);
+
 profileAvatarBox.addEventListener('click', handleAvatarButton);
 validatorPopupAvatar.enableValidation();
+
+// TODO:
+// const formValidators = {}
+// const enableValidation = (config) => {
+//     const formList = Array.from(document.querySelectorAll(config.formSelector))
+//     formList.forEach((formElement) => {
+//       const validator = new FormValidator(formElement, config)
+//   // получаем данные из атрибута `name` у формы
+//       const formName = formElement.getAttribute('name')
+
+//      // вот тут в объект записываем под именем формы
+//       formValidators[formName] = validator;
+//      validator.enableValidation();
+//     });
+//   };  
+//   enableValidation(config);
+
+// formValidators[ profileForm.getAttribute('name') ].resetValidation()
+
+// // или можно использовать строку (ведь Вы знаете, какой атрибут `name` у каждой формы)
+// formValidators['profile-form'].resetValidation()

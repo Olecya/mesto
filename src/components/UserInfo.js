@@ -27,16 +27,11 @@ export default class UserInfo {
         }
     }
 
-    setUserInfo = (data) => {
-        this._profileTitle.textContent = data.name;
-        this._profileSubtitle.textContent = data.description;
-    }
-
-    setUserInfoByApi = (profileJSON) => {
-        this._profileTitle.textContent = profileJSON.name;
-        this._profileSubtitle.textContent = profileJSON.about;
-        this._profileAvatar = profileJSON.avatar;
-        this._profile_id = profileJSON._id;
-        this._profileCohort = profileJSON.cohort;
+    setUserInfoByApi = ({ name, about, avatar, _id, cohort }) => {
+        this._profileTitle.textContent = name;
+        this._profileSubtitle.textContent = about;
+        this._profileAvatar = avatar;
+        this._profile_id = _id;
+        this._profileCohort = cohort;
     }
 }

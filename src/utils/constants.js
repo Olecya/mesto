@@ -51,9 +51,12 @@ export const profileAvatar = profileAvatarBox.querySelector('.profile__avatar');
 export const buttonAvatarSave = document.querySelector('.popup__button_avatar');
 export const popupTrashCard = document.querySelector('.popup-trash');
 
-export const ubaseUrl = 'https://mesto.nomoreparties.co/v1/cohort-52';
-export const headers = 
+export const apiOptions =
 {
-  authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-  'Content-Type': 'application/json'
-};
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52',
+  headers:
+  {
+    authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+    'Content-Type': 'application/json'
+  }
+}

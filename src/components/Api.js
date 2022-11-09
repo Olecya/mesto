@@ -1,137 +1,93 @@
 export default class Api {
-    constructor(baseUrl, headers) {
-        this._baseUrl = baseUrl;
-        this._headers = headers;
+    constructor(apiOptions) {
+        this._baseUrl = apiOptions.baseUrl;
+        this._headers = apiOptions.headers;
     }
-
-    _renderLoading = (bool, battonElement) => {
-        bool ?
-            battonElement.textContent = "Сохранение..." :
-            battonElement.textContent = "Сохранить";
-    }
+    // TODO:
+    // _renderLoading = (bool, battonElement) => {
+    //     bool ?
+    //         battonElement.textContent = "Сохранение..." :
+    //         battonElement.textContent = "Сохранить";
+    // }
 
     getInitialCards() {
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/cards', {
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            }
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    // console.log(res.json());
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            });
+            .then(this._checkResponse);
     }
 
-    postNewCard = (dataCard, battonElement) => {
-        this._renderLoading(true, battonElement);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/cards', {
+    postNewCard = (dataCard) => {
+        // this._renderLoading(true, battonElement);
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: dataCard.name,
                 link: dataCard.link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    // console.log(res.json());
-                    return res.json();
-                    // this.getInitialCards();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            })
-            .finally(() => this._renderLoading(false, battonElement));;
+            .then(this._checkResponse);
+            // .catch((err) => { renderError(`Ошибка: ${err}`) })  //TODO: index.js =>
+            // .finally(() => this._renderLoading(false, battonElement));;
     }
 
     deleteCard = (cardId) => {
-        return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f'
-            },
-        });
+            headers: this._headers,
+        })
+            .then(this._checkResponse);
     }
 
     toggleLikeCard = (cardId, method) => {
-        return fetch(`https://mesto.nomoreparties.co/v1/cohort-52/cards/${cardId}/likes`, {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: method,
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f'
-            },
+            headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    // console.log(res.json());
-                    return (res.json());
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            });
+            .then(this._checkResponse)
+        // .catch((err) => { renderError(`Ошибка: ${err}`) });
     }
 
     getProfile() {
-        // this._renderLoading(true);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            }
+        return fetch(`${this._baseUrl}/users/me`, {
+            headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .catch((err) => {
-                renderError(`Ошибка: ${err}`);
-            })
-        // .finally(() => this._renderLoading(false));;
+            .then(this._checkResponse)
+        // .catch((err) => { renderError(`Ошибка: ${err}`) })
     }
 
     patchProfile(profileJSON, battonElement) {
-        this._renderLoading(true, battonElement);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me', {
+        // this._renderLoading(true, battonElement);
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: profileJSON.name,
                 about: profileJSON.description,
             })
         })
-            .catch((err) => { renderError(`Ошибка: ${err}`) })
-            .finally(() => this._renderLoading(false, battonElement));
+            .then(this._checkResponse)
+            // .catch((err) => { renderError(`Ошибка: ${err}`) })
+            // .finally(() => this._renderLoading(false, battonElement));
     }
 
     patchProfileAvatar(avatarUrl, battonElement) {
-        this._renderLoading(true, battonElement);
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-52/users/me/avatar', {
+        // this._renderLoading(true, battonElement);
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: {
-                authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 avatar: avatarUrl.avatar,
             })
         })
-            .catch((err) => { renderError(`Ошибка: ${err}`) })
-            .finally(() => this._renderLoading(false, battonElement));
+            .then(this._checkResponse)
+            // .catch((err) => { renderError(`Ошибка: ${err}`) })
+            // .finally(() => this._renderLoading(false, battonElement));
     }
 
+    _checkResponse = (res) => {
+        if (res.ok) return res.json();
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
 }

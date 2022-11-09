@@ -50,14 +50,10 @@ export default class Card {
             // console.log(metod);
 
             this._toggleLikeApi(this._cardId, metod)
-                .then(res => {
-                    return this._likes = res.likes;
-                })
-                .then(() => {
-                    return this._likeElementNumber.textContent = this._likes.length;
-                });
-
-            this._handleToggleLike();
+                .then(res => { return this._likes = res.likes; })
+                .then(() => { return this._likeElementNumber.textContent = this._likes.length; })
+                .then(() => this._handleToggleLike())
+                .catch((err) => { renderError(`Ошибка: ${err}`) });
         });
 
         // TODO: 
@@ -69,15 +65,14 @@ export default class Card {
     }
 
     _handleTrash = () => {
-        // console.log(11111111111111);
-        this._delCardApi(this._cardId);
-        this._handleDeleteCard();
+        this._delCardApi(this._cardId)
+            .then(this._handleDeleteCard())
+            .catch((err) => { renderError(`Ошибка: ${err}`) });
     }
 
     _cardLike = () => {
         this._likeElement = this._elementCard.querySelector('.element__like');
         this._likeElementNumber = this._elementCard.querySelector('.element__like-number');
-        // this._myLike = this._likes.some(like => like._id === this._userId);
         if (this._myLike()) this._handleToggleLike();
         this._likeElementNumber.textContent = this._likes.length;
     }

@@ -15,7 +15,7 @@ export default class PopupWithConfirmation extends Popup {
     super.open();
     this._hendler = hendler;
     this.popupConfirmation = false;
-    console.log(this.popupConfirmation);
+    // console.log(this.popupConfirmation);
     this._buttonElement.focus();
     // setTimeout(() => {this._buttonElement.focus()}, 50);
     
@@ -27,7 +27,7 @@ export default class PopupWithConfirmation extends Popup {
   _handleConfirmation = (evt) => {
     evt.preventDefault();
       this.popupConfirmation = true;
-      console.log(this.popupConfirmation);
+      // console.log(this.popupConfirmation);
       this.close();
   }
 
