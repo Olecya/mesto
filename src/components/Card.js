@@ -1,5 +1,3 @@
-// import UserInfo from "./UserInfo.js";
-
 export default class Card {
     constructor(data, templateSelector, handleCardClick, userId, delCardApi, toggleLikeApi, trashPopup) {
         this._templateSelector = templateSelector;
@@ -29,14 +27,13 @@ export default class Card {
     }
 
     _handleToggleLike() {
-        // console.log(this._likes);
         this._likeElement.classList.toggle('element__like_aktiv');
-    };
+    }
 
     _handleDeleteCard = () => {
         this._elementCard.remove();
         this._elementCard = null;
-    };
+    }
 
     _setEventListeners() {
 
@@ -45,9 +42,7 @@ export default class Card {
         });
 
         this._likeElement.addEventListener('click', () => {
-            // this._myLike = this._likes.some(like => like._id === this._userId);
             const metod = this._myLike() ? 'DELETE' : 'PUT';
-            // console.log(metod);
 
             this._toggleLikeApi(this._cardId, metod)
                 .then(res => { return this._likes = res.likes; })
@@ -56,7 +51,6 @@ export default class Card {
                 .catch((err) => { renderError(`Ошибка: ${err}`) });
         });
 
-        // TODO: 
         this.definitionCardOwnerUser() ?
             this._trashIcon.addEventListener('click', (evt) => {
                 this._trashPopup.open(this._handleTrash);
@@ -65,9 +59,9 @@ export default class Card {
     }
 
     _handleTrash = () => {
-        this._delCardApi(this._cardId)
-            .then(this._handleDeleteCard())
-            .catch((err) => { renderError(`Ошибка: ${err}`) });
+        return this._delCardApi(this._cardId)
+            .then(() => this._handleDeleteCard());
+        // .catch((err) => { console.log(`Ошибка: ${err}`) }); // перенесла в PopupWithConfirmation
     }
 
     _cardLike = () => {
@@ -76,9 +70,10 @@ export default class Card {
         if (this._myLike()) this._handleToggleLike();
         this._likeElementNumber.textContent = this._likes.length;
     }
+
     _myLike = () => {
         return this._likes.some(like => like._id === this._userId);
-    };
+    }
 
     createCard() {
         this._elementCard = this._getTemplate();

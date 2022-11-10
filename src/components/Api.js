@@ -3,12 +3,6 @@ export default class Api {
         this._baseUrl = apiOptions.baseUrl;
         this._headers = apiOptions.headers;
     }
-    // TODO:
-    // _renderLoading = (bool, battonElement) => {
-    //     bool ?
-    //         battonElement.textContent = "Сохранение..." :
-    //         battonElement.textContent = "Сохранить";
-    // }
 
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
@@ -18,7 +12,6 @@ export default class Api {
     }
 
     postNewCard = (dataCard) => {
-        // this._renderLoading(true, battonElement);
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
@@ -28,8 +21,6 @@ export default class Api {
             })
         })
             .then(this._checkResponse);
-            // .catch((err) => { renderError(`Ошибка: ${err}`) })  //TODO: index.js =>
-            // .finally(() => this._renderLoading(false, battonElement));;
     }
 
     deleteCard = (cardId) => {
@@ -45,20 +36,17 @@ export default class Api {
             method: method,
             headers: this._headers,
         })
-            .then(this._checkResponse)
-        // .catch((err) => { renderError(`Ошибка: ${err}`) });
+            .then(this._checkResponse);
     }
 
     getProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then(this._checkResponse)
-        // .catch((err) => { renderError(`Ошибка: ${err}`) })
+            .then(this._checkResponse);
     }
 
     patchProfile(profileJSON, battonElement) {
-        // this._renderLoading(true, battonElement);
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -67,9 +55,7 @@ export default class Api {
                 about: profileJSON.description,
             })
         })
-            .then(this._checkResponse)
-            // .catch((err) => { renderError(`Ошибка: ${err}`) })
-            // .finally(() => this._renderLoading(false, battonElement));
+            .then(this._checkResponse);
     }
 
     patchProfileAvatar(avatarUrl, battonElement) {
@@ -81,9 +67,7 @@ export default class Api {
                 avatar: avatarUrl.avatar,
             })
         })
-            .then(this._checkResponse)
-            // .catch((err) => { renderError(`Ошибка: ${err}`) })
-            // .finally(() => this._renderLoading(false, battonElement));
+            .then(this._checkResponse);
     }
 
     _checkResponse = (res) => {

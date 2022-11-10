@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
 
     _handleForm = (evt) => {
         const inputsValues = this._getInputValues();
-        this._handleFormSubmit(evt, inputsValues, () => this.close);
+        this._handleFormSubmit(evt, inputsValues);
     }
 
     setEventListeners() {
@@ -33,6 +33,7 @@ export default class PopupWithForm extends Popup {
     close() {
         this._popupContentCard.reset();
         super.close();
+        this._popupElement.removeEventListener('submit', this._handleForm);
     }
 
     renderLoading(isLoading, loadingText = 'Сохранение...') {

@@ -45,14 +45,10 @@ export default class FormValidator {
     }
 
     _setEventListeners() {
-
-        // чтобы проверить состояние кнопки в самом начале
         this._toggleButtonState();
-
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                // чтобы проверять его при изменении любого из полей
                 this._toggleButtonState();
             });
         });
@@ -60,11 +56,6 @@ export default class FormValidator {
 
     enableValidation() {
         this._setEventListeners();
-    }
-
-    disableSubmitButton = () => {
-        // this._buttonElement.classList.add('popup__button_disabled');
-        this._buttonElement.disabled = null;
     }
 
     resetValidationErrors = () => {

@@ -30,22 +30,19 @@ import Api from '../components/Api.js';
 
 const popupImage = new PopupWithImage(popupIdPhoto);
 const popupTrash = new PopupWithConfirmation(popupTrashCard);
-const userInfo = new UserInfo(profileTitle, profileSubtitle);
+const userInfo = new UserInfo(profileTitle, profileSubtitle, profileAvatar);
 const api = new Api(apiOptions);
-
-const section = new Section(
-    {
-        renderer: (cardData) => {
-            section.addItem(createCard(cardData))
-        },
+const section = new Section({
+    renderer: (cardData) => {
+        section.addItem(createCard(cardData))
     },
+},
     elementCardGrid
 );
 
 Promise.all([api.getProfile(), api.getInitialCards()])
     .then(([userData, cards]) => {
         userInfo.setUserInfoByApi(userData);
-        inputProfileContent()
         section.renderItems(cards);
     })
     .catch((err) => console.log(err));
@@ -53,10 +50,9 @@ Promise.all([api.getProfile(), api.getInitialCards()])
 // Работа с профилем
 // берет значения из userinfo и меняет на странице
 function inputProfileContent() {
-    const dataUser = userInfo.getUserInfo();
+    const dataUser = userInfo.getInfo();
     popapInputProfileName.value = dataUser.name;
     popapInputProfileInfo.value = dataUser.description;
-    if (dataUser.avatar) profileAvatar.src = dataUser.avatar;
 }
 
 // раскрытие фото на весь экран
@@ -78,13 +74,13 @@ const createCard = (dataCard) => {
 
 // хендлеры на формы
 function handleProfileFormSubmit(evt, data) {
-    // console.log(data);
     popupWithFormIdProfile.renderLoading(true);
     evt.preventDefault();
-    ;
     api.patchProfile(data)
-        .then((res) => { userInfo.setUserInfoByApi(res) })
-        .then(() => popupWithFormIdProfile.close())
+        .then((res) => {
+            userInfo.setUserInfoByApi(res);
+            popupWithFormIdProfile.close()
+        })
         .catch((err) => { console.log(`Ошибка: ${err}`) })
         .finally(() => popupWithFormIdProfile.renderLoading(false));;
 }
@@ -93,10 +89,10 @@ const handleCardFormSubmit = (evt, dataCard) => {
     evt.preventDefault();
     popupWithFormIdCard.renderLoading(true);
     api.postNewCard(dataCard)
-        .then(res => { return createCard(res) })
-        // .then(card => { return elementCardGrid.prepend(card) })
-        .then(card => { return section.prependItem(card) })
-        .then(() => { popupWithFormIdCard.close() })
+        .then((res) => {
+            popupWithFormIdCard.close();
+            return section.prependItem(createCard(res));
+        })
         .catch((err) => { console.log(`Ошибка: ${err}`) })
         .finally(() => popupWithFormIdCard.renderLoading(false));
 };
@@ -106,7 +102,6 @@ const handleButtonProfileOpen = () => {
     popupWithFormIdProfile.open();
 }
 const handleButtonCardOpen = () => {
-    validatorAddCardForm.disableSubmitButton();
     validatorAddCardForm.resetValidationErrors();
     popupWithFormIdCard.open();
 }
@@ -129,9 +124,7 @@ const handleAvatarSave = (evt, dataAvatar) => {
     evt.preventDefault();
     popupAvatar.renderLoading(true);
     api.patchProfileAvatar(dataAvatar)
-        .then(() => { return api.getProfile() })
         .then((res) => { userInfo.setUserInfoByApi(res); })
-        .then(() => inputProfileContent())
         .then(() => popupAvatar.close())
         .catch((err) => { console.log(`Ошибка: ${err}`) })
         .finally(() => popupAvatar.renderLoading(false));
@@ -158,7 +151,7 @@ validatorPopupAvatar.enableValidation();
 //       formValidators[formName] = validator;
 //      validator.enableValidation();
 //     });
-//   };  
+//   };
 //   enableValidation(config);
 
 // formValidators[ profileForm.getAttribute('name') ].resetValidation()
